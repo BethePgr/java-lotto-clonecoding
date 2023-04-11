@@ -1,38 +1,68 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class InputView {
-    private final static String START_MESSAGE = "구입 금액을 입력해주세요.";
+    private static final String START_MESSAGE = "구입 금액을 입력해주세요.";
+    private static final String INPUT_WINNING_NUMBER_MESSAGE = "구입 금액을 입력해 주세요.";
 
     public String inputUserMoney(){
         System.out.println(START_MESSAGE);
         return Console.readLine();
     }
 
-    public void validCheck(String input){
-        if(notEmpty(input) || startWith0(input) || noRemain(input) || notOnlyNumber(input)){
+    public String inputWinningNumber(){
+        System.out.println(INPUT_WINNING_NUMBER_MESSAGE);
+        return Console.readLine();
+    }
+
+    public void validWinningNumber(String str){
+        if(notExistingInputValue(str) || isWrongRangeNumber(str) || isWrongSize(str) || isDuplicateNumber(str)){
+            throw new IllegalArgumentException("[ERROR] 당첨 번호는 1~45 사이의 중복되지 않은 6개의 숫자여야합니다.");
+        }
+    }
+
+    private boolean isDuplicateNumber(String str){
+        Set<String> notDuplicateNumbers = Arrays.stream(str.split(",")).collect(Collectors.toSet());
+        return notDuplicateNumbers.size() != 6;
+    }
+
+    private boolean isWrongRangeNumber(String str){
+        return !Arrays.stream(str.split(",")).map(num -> Integer.parseInt(num)).allMatch(num ->
+            num >=1 && num <= 45);
+    }
+
+    private boolean isWrongSize(String str){
+        return Arrays.stream(str.split(",")).count() != 6;
+    }
+
+
+    public void validMoney(String input){
+        if(notExistingInputValue(input) || isFirstLetterZero(input) || isNotDivideInto1000Units(input) || isNotNumber(input)){
             throw new IllegalArgumentException("[ERROR] 숫자로 이루어져야하며, 1000이상이면서"
                 + "1000으로 나누어떨어져야한다.");
         }
     }
     //비어있으면 true
-    private boolean notEmpty(String input){
+    private boolean notExistingInputValue(String input){
         return input.isEmpty();
     }
 
     //0으로 시작하면 true
-    private boolean startWith0(String input){
+    private boolean isFirstLetterZero(String input){
         return input.charAt(0) == '0';
     }
 
     //1000 나눈 나머지가 0이 아니면 true
-    private boolean noRemain(String input){
+    private boolean isNotDivideInto1000Units(String input){
         return (Integer.parseInt(input) % 1000) != 0;
     }
 
     //숫자 아닌게 있으면 true
-    private boolean notOnlyNumber(String input){
+    private boolean isNotNumber(String input){
         String reg = "^[0-9]+$";
         return !input.matches(reg);
     }
