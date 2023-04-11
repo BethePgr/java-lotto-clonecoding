@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 
 public class InputView {
     private static final String START_MESSAGE = "구입 금액을 입력해주세요.";
-    private static final String INPUT_WINNING_NUMBER_MESSAGE = "구입 금액을 입력해 주세요.";
+    private static final String INPUT_WINNING_NUMBER_MESSAGE = "당첨 번호를 입력해 주세요.";
+    private static final String INPUT_BONUS_NUMBER_MESSAGE = "보너스 번호를 입력해주세요.";
 
     public String inputUserMoney(){
         System.out.println(START_MESSAGE);
@@ -18,6 +19,18 @@ public class InputView {
         System.out.println(INPUT_WINNING_NUMBER_MESSAGE);
         return Console.readLine();
     }
+
+    public String inputBonusNumber(){
+        System.out.println(INPUT_BONUS_NUMBER_MESSAGE);
+        return Console.readLine();
+    }
+
+    public void validBonusNumber(String str){
+        if(isNotNumber(str) || isWrongRangeNumber(str)){
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 1~45의 범위를 가진 숫자입니다.");
+        }
+    }
+
 
     public void validWinningNumber(String str){
         if(notExistingInputValue(str) || isWrongRangeNumber(str) || isWrongSize(str) || isDuplicateNumber(str)){

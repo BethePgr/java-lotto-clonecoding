@@ -104,4 +104,39 @@ class InputViewTest {
             inputView.validWinningNumber(input);
         });
     }
+
+    @Test
+    void 보너스번호_입력_예외가_발생() throws Exception {
+        //given
+        String input = "";
+        assertThrows(IllegalArgumentException.class,() -> {
+            inputView.validBonusNumber(input);
+        });
+    }
+    @Test
+    void 보너스번호_입력_예외가_발생1() throws Exception {
+        //given
+        String input = "0";
+        assertThrows(IllegalArgumentException.class,() -> {
+            inputView.validBonusNumber(input);
+        });
+    }
+    @Test
+    void 보너스번호_입력_예외가_발생2() throws Exception {
+        //given
+        String input = "46";
+        assertThrows(IllegalArgumentException.class,() -> {
+            inputView.validBonusNumber(input);
+        });
+    }
+    @Test
+    void 보너스번호_입력_예외가_발생안함() throws Exception {
+        //given
+        String input = "45";
+        assertDoesNotThrow(() -> inputView.validBonusNumber(input));
+        String input1 = "1";
+        assertDoesNotThrow(() -> inputView.validBonusNumber(input1));
+        String input2 = "24";
+        assertDoesNotThrow(() -> inputView.validBonusNumber(input2));
+    }
 }

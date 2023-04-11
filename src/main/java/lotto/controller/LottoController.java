@@ -7,8 +7,12 @@ import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class LottoController {
+
+    InputView inputView = new InputView();
+
     public void run(){
         chargeLottoPurchaseAmount();
+        receiveWinningNumbers();
     }
 
     public void chargeLottoPurchaseAmount() {
@@ -23,9 +27,14 @@ public class LottoController {
         OutputView.printLottoTickets(lottoTickets);
     }
 
-    public static void main(String[] args) {
-        LottoController lo = new LottoController();
-        lo.run();
+    public void receiveWinningNumbers(){
+        String userInput = inputView.inputWinningNumber();
+        inputView.validWinningNumber(userInput);
+    }
+
+    public void receiveBonusNumber(){
+        String userInput = inputView.inputBonusNumber();
+        inputView.validBonusNumber(userInput);
     }
 
 
