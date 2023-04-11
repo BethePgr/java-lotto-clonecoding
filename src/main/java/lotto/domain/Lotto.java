@@ -31,4 +31,8 @@ public class Lotto {
             throw new IllegalArgumentException("[ERROR] 로또 번호의 숫자는 1에서 45 사이여야 합니다.");
         }
     }
+
+    public List<Integer> getNumbers(){
+        return numbers;
+    }
 }

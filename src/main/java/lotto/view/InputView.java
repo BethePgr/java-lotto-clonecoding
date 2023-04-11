@@ -5,12 +5,12 @@ import camp.nextstep.edu.missionutils.Console;
 public class InputView {
     private final static String START_MESSAGE = "구입 금액을 입력해주세요.";
 
-    public String inputStartMoney(){
+    public String inputUserMoney(){
         System.out.println(START_MESSAGE);
         return Console.readLine();
     }
 
-    public void checkAll(String input){
+    public void validCheck(String input){
         if(notEmpty(input) || startWith0(input) || noRemain(input) || notOnlyNumber(input)){
             throw new IllegalArgumentException("[ERROR] 숫자로 이루어져야하며, 1000이상이면서"
                 + "1000으로 나누어떨어져야한다.");
