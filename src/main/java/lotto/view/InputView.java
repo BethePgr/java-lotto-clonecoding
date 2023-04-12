@@ -10,10 +10,17 @@ public class InputView {
     private static final String INPUT_WINNING_NUMBER_MESSAGE = "당첨 번호를 입력해 주세요.";
     private static final String INPUT_BONUS_NUMBER_MESSAGE = "보너스 번호를 입력해주세요.";
 
-    public String inputUserMoney(){
+    public String inputUserMoney() {
         System.out.println(START_MESSAGE);
-        return Console.readLine();
+        String money = Console.readLine();
+        try {
+            validMoney(money);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return money;
     }
+
 
     public String inputWinningNumber(){
         System.out.println(INPUT_WINNING_NUMBER_MESSAGE);
@@ -44,7 +51,7 @@ public class InputView {
     }
 
     private boolean isWrongRangeNumber(String str){
-        return !Arrays.stream(str.split(",")).map(num -> Integer.parseInt(num)).allMatch(num ->
+        return Arrays.stream(str.split(",")).map(num -> Integer.parseInt(num)).noneMatch(num ->
             num >=1 && num <= 45);
     }
 
