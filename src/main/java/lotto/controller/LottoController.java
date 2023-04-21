@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoTicket;
+import lotto.domain.Money;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -28,10 +29,9 @@ public class LottoController {
     }
 
     public void chargeLottoPurchaseAmount() {
-        InputView inputView = new InputView();
-        String userInput = inputView.inputUserMoney();
-        inputView.validMoney(userInput);
-        userMoney = Integer.parseInt(userInput);
+        Money money = new Money(inputView.inputUserMoney());
+        inputView.validMoney(money.getMoney());
+        userMoney = Integer.parseInt(money.getMoney());
         int ticketNumber = userMoney / 1000;
         LottoTicket lottoTicket = new LottoTicket(ticketNumber);
         lottoTickets = lottoTicket.createLottoTickets();
